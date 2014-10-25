@@ -1,5 +1,15 @@
 var agiServer = require('ding-dong');
+var NAMI = require('nami').Nami;
 
+var namiConfig = {
+    host: "127.0.0.1",
+    port: 5038,
+    username: "admin",
+    secret: "password"
+};
+
+var amiServer = new NAMI(namiConfig);
+amiServer.open();
 
 var handler = function(context) {
   //context is a new instance of agi.Context for each new agi session
@@ -17,8 +27,7 @@ var handler = function(context) {
   var filename = '/tmp/agent-alreadyon';
   context.streamFile(filename, function(err, res){
     console.log(err);
-    console.log(res);
-    
+    console.log(res);    
   });
 
   context.sayDigits('987654321', '*#', function(err, res) {

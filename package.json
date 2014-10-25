@@ -9,6 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "ding-dong": "0.0.2"
+    "ding-dong": "0.0.2",
+    "nami": "^0.6.6"
   }
 }
