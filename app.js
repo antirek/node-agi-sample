@@ -1,5 +1,6 @@
 var agiServer = require('ding-dong');
 var NAMI = require('nami').Nami;
+var namiLib = require('nami');
 
 var namiConfig = {
     host: "127.0.0.1",
@@ -9,6 +10,28 @@ var namiConfig = {
 };
 
 var amiServer = new NAMI(namiConfig);
+amiServer.on('namiEventDial', function (event) { 
+  console.log(event)
+});
+
+var action = new namiLib.Actions.Originate();
+
+action.Channel = 'SIP/1060';
+action.Exten = '1061';
+action.Context = 'default';
+action.Priority = 1;
+
+
+
+amiServer.on('namiConnected', function (event) {
+    
+    amiServer.send(action, function(response) {
+        console.log('Action', action);
+        console.log(response);
+    });
+
+});
+
 amiServer.open();
 
 var handler = function(context) {
@@ -18,6 +41,7 @@ var handler = function(context) {
   context.on('variables', function(vars) {
     console.log('received new call from: ' + vars.agi_callerid + 
       ' with uniqueid: ' + vars.agi_uniqueid);
+    console.log(vars);
   });
 
   context.exec('ANSWER', function(err, res) {
