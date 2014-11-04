@@ -8,8 +8,9 @@ var handler = function(context) {
   context.on('variables', function(vars) {
 
   	switch(vars.agi_network_script) {
-  		case 'checkdialstatus': 
-  			checkdialstatus(vars);
+  		case 'checkdialstatus':
+  			
+  			checkdialstatus(vars, context);
   			break;
 
   		case 'getoperators':
@@ -29,7 +30,10 @@ var getoperators = function(vars){
 	console.log('get operators');
 }
 
-var checkdialstatus = function(vars){
+var checkdialstatus = function(vars, context){
+	context.exec("SET myvar=123", function(err, res){
+		console.log('err:', err, 'res:', res);
+	});
 	console.log('received new call from: ' + vars.agi_callerid + 
       ' with uniqueid: ' + vars.agi_uniqueid);
     console.log(vars);
