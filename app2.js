@@ -37,6 +37,7 @@ var checkdialstatus = function(vars, context){
 	console.log('received new call from: ' + vars.agi_callerid + 
       ' with uniqueid: ' + vars.agi_uniqueid);
     console.log(vars);
+    context.end();
 }
 
 agiServer.createServer(handler).listen(3007);
