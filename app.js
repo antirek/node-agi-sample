@@ -24,11 +24,6 @@ action.Priority = 1;
 
 
 amiServer.on('namiConnected', function (event) {
-    
-    amiServer.send(action, function(response) {
-        console.log('Action', action);
-        console.log(response);
-    });
 
 });
 
@@ -51,15 +46,15 @@ var handler = function(context) {
   var filename = '/tmp/agent-alreadyon';
   context.streamFile(filename, function(err, res){
     console.log(err);
-    console.log(res);    
+    console.log(res);
+
+    amiServer.send(action, function(response) {
+        console.log('Action', action);
+        console.log(response);
+    });    
+  
   });
 
-  context.sayDigits('987654321', '*#', function(err, res) {
-    console.log('say number');
-    console.log(res);
-    
-  });
-  
 }
 
 agiServer.createServer(handler).listen(3007);
